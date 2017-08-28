@@ -1,3 +1,4 @@
+README.rst
 setup.cfg
 setup.py
 client/__init__.py
