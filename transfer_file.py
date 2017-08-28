@@ -12,7 +12,7 @@ import datetime
 
 
 def create_zip():
-    if sys.argv[1]:
+    if len(sys.argv) > 1:
         path_to_folder = sys.argv[1]
     else:
         path_to_folder = input("Please enter directory: \n")
@@ -76,8 +76,11 @@ def print_help():
           "\n transfer_files -h - print help message")
 
 if __name__ == '__main__':
-    if sys.argv[1] == '-h':
+    if len(sys.argv) > 1 and sys.argv[1] == '-h':
         print_help()
     else:
-        send_zip()
+        try:
+            send_zip()
+        except KeyboardInterrupt:
+            print("\nExecution stopped")
 
