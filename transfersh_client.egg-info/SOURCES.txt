@@ -1,0 +1,9 @@
+setup.py
+client/__init__.py
+client/app.py
+transfersh_client.egg-info/PKG-INFO
+transfersh_client.egg-info/SOURCES.txt
+transfersh_client.egg-info/dependency_links.txt
+transfersh_client.egg-info/entry_points.txt
+transfersh_client.egg-info/requires.txt
+transfersh_client.egg-info/top_level.txt

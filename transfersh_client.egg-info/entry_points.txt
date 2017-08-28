@@ -1,0 +1,3 @@
+[console_scripts]
+transfer_files = client.app:main
+
