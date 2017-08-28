@@ -2,7 +2,7 @@
 Python client for uploading files to transfer.sh (https://transfer.sh/)
 
 # Usage
-- Start script
+- Start script as is or enter directory as an argument
 - Enter directory, which files you want to upload
 - After download link received, confirm weather keep files in directory or delete them
 - Share created download link where ever you want!
