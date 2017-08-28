@@ -9,6 +9,7 @@ import sys
 import zipfile
 import requests
 import datetime
+import pyperclip
 
 
 def create_zip():
@@ -41,6 +42,8 @@ def send_zip():
     response = requests.post(url, files=file)
     download_link = response.content.decode('utf-8')
     print("Link to download zipfile:\n", download_link)
+    pyperclip.copy(download_link)
+    print("Link copied to clipboard")
     confirm_removal(zip_file)
     
 
