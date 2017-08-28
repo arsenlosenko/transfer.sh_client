@@ -37,16 +37,23 @@ def send_zip():
     response = requests.post(url, files=file)
     download_link = response.content.decode('utf-8')
     print("Link to download zipfile:\n", download_link)
-    confirm_removal()
+    confirm_removal(zip_file)
+    
 
+def remove_archive(file_name):
+    print("Deleting archive: ", file_name)
+    os.remove(file_name)
+    print("File removed")
 
-def confirm_removal():
-    confirmation = input('\nDelete files in the directory?(y/n, Y/N): ')
+def confirm_removal(zip_file):
+    confirmation = input('\nDelete files in the directory?(y/n, Y/N, archive): ')
     if (confirmation == 'y') or (confirmation == 'Y'):
         clean_up()
     elif (confirmation == 'n') or (confirmation == 'N'):
         print("OK, files will be there")
         sys.exit()
+    elif confirmation == 'archive':
+        remove_archive(zip_file)
     else:
         print("Please enter a valid answer (y/n, Y/N)")
         confirm_removal()
