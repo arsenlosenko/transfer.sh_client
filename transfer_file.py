@@ -12,7 +12,11 @@ import datetime
 
 
 def create_zip():
-    path_to_folder = input("Please enter directory: \n")
+    if sys.argv[1]:
+        path_to_folder = sys.argv[1]
+    else:
+        path_to_folder = input("Please enter directory: \n")
+
     if os.path.isdir(path_to_folder):
         os.chdir(path_to_folder)
         zip_name = 'files_archive_{}.zip'.format(str(datetime.datetime.now())[5:16].replace(' ', "_"))
@@ -66,7 +70,14 @@ def clean_up():
         os.remove(f)
         print("Removed file: ", f)
 
+def print_help():
+    print("Usage:\n transfer_files /path/to/files - archive directly"
+          "\n transfer_files - start script with prompt "
+          "\n transfer_files -h - print help message")
 
 if __name__ == '__main__':
-    send_zip()
+    if sys.argv[1] == '-h':
+        print_help()
+    else:
+        send_zip()
 
