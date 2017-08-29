@@ -36,26 +36,37 @@ def create_zip():
 
 def send_zip():
     zip_file = create_zip()
-    print("\nSending zipfile: ", zip_file)
+    size_of_file = get_archive_size(zip_file)
+    final_date = get_date_in_two_weeks()
+
+    print("\nSending zipfile: {} (size of the file: {} MB)".format(zip_file, size_of_file))
     url = 'https://transfer.sh/'
     file = {'file': open(zip_file, 'rb')}
     response = requests.post(url, files=file)
     download_link = response.content.decode('utf-8')
-    print("Link to download zipfile:\n", download_link)
+    print("Link to download zipfile(will be saved till {}):\n{}".format(final_date, download_link))
+
     try:
         pyperclip.copy(download_link)
-    except PyperclipException: 
+    except:
         print("There is no copy/paste environment, please install one of the following packages:\n"
               "sudo apt-get install\n" 
               "sudo apt-get install xclip")
     print("Link copied to clipboard")
     confirm_removal(zip_file)
-    
+
+
+def get_date_in_two_weeks():
+    today = datetime.datetime.today()
+    date_in_two_weeks = today + datetime.timedelta(days=14)
+    return date_in_two_weeks.date()
+
 
 def remove_archive(file_name):
     print("Deleting archive: ", file_name)
     os.remove(file_name)
     print("File removed")
+
 
 def confirm_removal(zip_file):
     confirmation = input('\nDelete files in the directory?(y/n, Y/N, archive): ')
@@ -78,10 +89,18 @@ def clean_up():
         os.remove(f)
         print("Removed file: ", f)
 
+
+def get_archive_size(file):
+    size_in_bytes = os.path.getsize(file)
+    size_in_megabytes = size_in_bytes / 1000000
+    return size_in_megabytes
+
+
 def print_help():
     print("Usage:\n transfer_files /path/to/files - archive directly"
           "\n transfer_files - start script with prompt "
           "\n transfer_files -h - print help message")
+
 
 def main():
     if len(sys.argv) > 1 and sys.argv[1] == '-h':
