@@ -62,10 +62,10 @@ def get_date_in_two_weeks():
     return date_in_two_weeks.date()
 
 
-def remove_archive(file_name):
-    print("Deleting archive: ", file_name)
-    os.remove(file_name)
-    print("File removed")
+def get_archive_size(file):
+    size_in_bytes = os.path.getsize(file)
+    size_in_megabytes = size_in_bytes / 1000000
+    return size_in_megabytes
 
 
 def confirm_removal(zip_file):
@@ -82,18 +82,18 @@ def confirm_removal(zip_file):
         confirm_removal()
 
 
+def remove_archive(file_name):
+    print("Deleting archive: ", file_name)
+    os.remove(file_name)
+    print("File removed")
+
+
 def clean_up():
     print('\nCleaning up...')
     files = os.listdir()
     for f in files:
         os.remove(f)
         print("Removed file: ", f)
-
-
-def get_archive_size(file):
-    size_in_bytes = os.path.getsize(file)
-    size_in_megabytes = size_in_bytes / 1000000
-    return size_in_megabytes
 
 
 def print_help():
