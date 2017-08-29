@@ -3,7 +3,7 @@ Python client for uploading files to transfer.sh (https://transfer.sh/)
 
 # Latest release:
 
-https://pypi.python.org/pypi/transfersh-client/1.0.6
+https://pypi.python.org/pypi/transfersh-client/1.0.7
 
 # Getting Started
 - Install python and pip (package manager):
