@@ -42,7 +42,12 @@ def send_zip():
     response = requests.post(url, files=file)
     download_link = response.content.decode('utf-8')
     print("Link to download zipfile:\n", download_link)
-    pyperclip.copy(download_link)
+    try:
+        pyperclip.copy(download_link)
+    except PyperclipException: 
+        print("There is no copy/paste environment, please install one of the following packages:\n"
+              "sudo apt-get install\n" 
+              "sudo apt-get install xclip")
     print("Link copied to clipboard")
     confirm_removal(zip_file)
     

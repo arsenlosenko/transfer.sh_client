@@ -1,6 +1,10 @@
 # transfer.sh-uploader
 Python client for uploading files to transfer.sh (https://transfer.sh/)
 
+# Latest release:
+
+https://pypi.python.org/pypi/transfersh-client/1.0.6
+
 # Usage
 - Start script
 - Enter directory, which files you want to upload
