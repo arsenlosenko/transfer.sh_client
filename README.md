@@ -38,7 +38,7 @@ transfer_files
 ~~~~
 Github|⇒ ./transfer.sh_client/client/app.py
 Enter path to file or directory: ./sysinfo
-Creating zipfile from files in... /home/arsen/Documents/Github/sysinfo
+Creating zipfile from files in... /home/path/to/directory/sysinfo
 Added file:  cython_tut.cpython-34m.so
 Added file:  cython_tut.pyx
 Added file:  setup.py
@@ -59,7 +59,7 @@ Could not save metadata
 
 Link copied to clipboard
 Remove archive? (y/n, yes/no):yes
-Removing file... /home/arsen/Documents/Github/sysinfo/files_archive_09-02_18:34.zip
+Removing file... /home/path/to/directory/sysinfo/files_archive_09-02_18:34.zip
 Removed.
 ~~~~
 - Besides that, you can start it with arguments:
@@ -80,11 +80,11 @@ Removed.
 ~~~
 transfer.sh_client|dev⚡ ⇒ ./client/app.py -f test.txt --rf
 
-Sending file: /home/arsen/Documents/Github/transfer.sh_client/test.txt (size of the file: 0.000113 MB)
+Sending file: /home/path/to/directory/transfer.sh_client/test.txt (size of the file: 0.000113 MB)
 Link to download file(will be saved till 2017-09-16):
 https://transfer.sh/CtaJs/test.txt
 Link copied to clipboard
-Removing file... /home/arsen/Documents/Github/transfer.sh_client/test.txt
+Removing file... /home/path/to/directory/transfer.sh_client/test.txt
 Removed.
 
 ~~~

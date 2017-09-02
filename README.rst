@@ -1,18 +1,72 @@
 ============
 Usage:
 ============
- - Start script::
 
-     transfer_files
 
- - Enter directory, which files you want to upload (as a parameter, or interactively)::
+- After installation, you can run this package directly in command line. Launching it without arguments starts it in interactive mode:
 
-    transfer_files ./ 
+================
+Sample output:
+================
+::
 
- - After download link received and copied to clipboard automatically, confirm weather keep files in directory or delete them(or to delete just the created archive)::
+    Github|⇒ ./transfer.sh_client/client/app.py
+    Enter path to file or directory: ./sysinfo
+    Creating zipfile from files in... /home/path/to/directory/sysinfo
+    Added file:  cython_tut.cpython-34m.so
+    Added file:  cython_tut.pyx
+    Added file:  setup.py
+    Added file:  build
+    Added file:  fib.cpython-34m.so
+    Added file:  primes.c
+    Added file:  .idea
+    Added file:  fib.c
+    Added file:  parse_proc_files.py
+    Added file:  fib.pyx
+    Added file:  primes.pyx
+    Added file:  cython_tut.c
+    Added file:  primes.cpython-34m.so
 
-    Delete files in the directory?(y/n, Y/N, archive):
- - Share created download link where ever you want!
+    Sending zipfile: files_archive_09-02_18:34.zip (size of the file: 0.407897 MB)
+    Link to download zipfile(will be saved till 2017-09-16):
+    Could not save metadata
+
+    Link copied to clipboard
+    Remove archive? (y/n, yes/no):yes
+    Removing file... /home/path/to/directory/sysinfo/files_archive_09-02_18:34.zip
+    Removed.
+
+
+
+- Besides that, you can start it with arguments:
+
+   -i --interactive - keys that will start app with prompts (same as running it without arguments)
+
+   -d --directory - enter path to directory (relative or absolute), which files will be sent in an archive
+
+   -f --file - same as --directory, but enter path to file
+
+   --ra --rm-archive - delete created archive, after it was sent
+
+   --rf --rm-file - delete file after it was sent
+
+   -h --help - display help message
+
+=============
+Sample output
+=============
+::
+
+    transfer.sh_client|dev⚡ ⇒ ./client/app.py -f test.txt --rf
+
+    Sending file: /home/path/to/directory/transfer.sh_client/test.txt (size of the file: 0.000113 MB)
+    Link to download file(will be saved till 2017-09-16):
+    https://transfer.sh/CtaJs/test.txt
+    Link copied to clipboard
+    Removing file... /home/path/to/directory/transfer.sh_client/test.txt
+    Removed.
+
+
 
 ============
 Download
@@ -26,25 +80,3 @@ Requirements
 ==================
  - pyperclip
  - requests
-
-==================
-Sample output
-==================
-::
-
-  transfer.sh-uploader|master⚡ ⇒ transfer_files ./                                     
-  Creating zipfile from files in... ./
-  Added file:  README.md
-  Added file:  .idea
-  Added file:  requirements.txt
-  Added file:  transfer_file.py
-  Added file:  .git
-  Added file:  LICENSE
-  
-  Sending zipfile:  files_archive_08-28_15:22.zip   
-   Link to download zipfile:
-  https://transfer.sh/eoqSx/files_archive_08-28_15:22.zip
-   
-   Delete files in the directory?(y/n, Y/N, archive): n
-   OK, files will be there
-
