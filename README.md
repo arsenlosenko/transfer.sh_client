@@ -5,7 +5,7 @@ so it could be easily shared
 
 # Latest release:
 
-https://pypi.python.org/pypi/transfersh-client/1.1.0
+https://pypi.python.org/pypi/transfersh-client/1.1.1
 
 # Getting Started
 - Install python and pip (package manager):
