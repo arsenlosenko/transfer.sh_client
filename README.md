@@ -36,7 +36,7 @@ transfer_files
 
 ### Sample output:
 ~~~~
-Github|⇒ ./transfer.sh_client/client/app.py
+Github|⇒ transfer_files
 Enter path to file or directory: ./sysinfo
 Creating zipfile from files in... /home/path/to/directory/sysinfo
 Added file:  cython_tut.cpython-34m.so
@@ -78,7 +78,7 @@ Removed.
 
 ### Sample output
 ~~~
-transfer.sh_client|dev⚡ ⇒ ./client/app.py -f test.txt --rf
+transfer.sh_client|dev⚡ ⇒ transfer_files -f test.txt --rf
 
 Sending file: /home/path/to/directory/transfer.sh_client/test.txt (size of the file: 0.000113 MB)
 Link to download file(will be saved till 2017-09-16):
