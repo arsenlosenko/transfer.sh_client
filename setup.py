@@ -26,7 +26,7 @@ setup(
         ],
         entry_points={
                 "console_scripts":
-                ['transfer_files = client.app:main'],
+                ['transfer_files = transfersh_client.app:main'],
             },
     )
 
