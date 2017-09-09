@@ -3,7 +3,7 @@ from os.path import join, dirname
 
 setup(
         name="transfersh_client",
-        version="1.1.1",
+        version="1.1.2",
         author="Arsen Losenko",
         author_email="arsenlosenko@gmail.com",
         description="transfer.sh command-line client",
