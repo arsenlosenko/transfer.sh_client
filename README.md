@@ -9,7 +9,7 @@ https://pypi.python.org/pypi/transfersh-client/1.1.2
 
 # Getting Started
 - Install python and pip (package manager):
-~~~~
+~~~~bash
 sudo apt-get update
 
 sudo apt-get install python3 python3-pip
@@ -19,7 +19,7 @@ OR
 sudo apt-get install python python-pip
 ~~~~
 - Download package from pip:
-~~~
+~~~bash
 sudo pip3 install transfersh_client
 
 OR
@@ -30,12 +30,12 @@ sudo pip install trnasfersh_client
 # Usage
 
 - After installation, you can run this package directly in command line. Launching it without arguments starts it in interactive mode:
-~~~
+~~~bash
 transfer_files
 ~~~
 
 ### Sample output:
-~~~~
+~~~~bash
 Github|⇒ transfer_files
 Enter path to file or directory: ./sysinfo
 Creating zipfile from files in... /home/path/to/directory/sysinfo
@@ -77,7 +77,7 @@ Removed.
    -h --help - display help message
 
 ### Sample output
-~~~
+~~~bash
 transfer.sh_client|dev⚡ ⇒ transfer_files -f test.txt --rf
 
 Sending file: /home/path/to/directory/transfer.sh_client/test.txt (size of the file: 0.000113 MB)
@@ -91,7 +91,7 @@ Removed.
 
 ## Example of usage inside scripts 
 
-~~~
+~~~python
 #!/usr/bin/env python3
 
 from transfersh_client.app import send_to_transfersh, create_zip, remove_file
