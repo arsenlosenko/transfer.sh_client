@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 
 """
-Script that uploads files in entered directory as an archive to transfer.sh, for easy downloading.
+author: Arsen Losenko
+email: arsenlosenko@gmail.com
+github: arsenlosenko
+short description: command-line tool that uploads files to transfer.sh and returns download link
 """
 
 import os
@@ -14,12 +17,21 @@ import optparse
 
 
 def get_date_in_two_weeks():
+    """
+    get maximum date of storage for file
+    :return: date in two weeks
+    """
     today = datetime.datetime.today()
     date_in_two_weeks = today + datetime.timedelta(days=14)
     return date_in_two_weeks.date()
 
 
 def get_size(file):
+    """
+    get file size, in megabytes
+    :param file:
+    :return: size of file
+    """
     size_in_bytes = os.path.getsize(file)
     size_in_megabytes = size_in_bytes / 1000000
     return size_in_megabytes
@@ -61,6 +73,10 @@ def parse_params():
 
 
 def check_params():
+    """
+    check if entered params are in correct usage (and prevent incorrect usage)
+    :return: options in correct form
+    """
     params = parse_params()
     options = params[0]
     parser = params[2]
@@ -88,6 +104,11 @@ def check_params():
 
 
 def check_absolute_path(path):
+    """
+    check if entered directory is absolute, if not, format it to absolute
+    :param path: path that was entered by user
+    :return: absolute path
+    """
     current_dir = os.getcwd()
     if os.path.isabs(path) is False:
         if str(path).startswith("./"):
@@ -99,6 +120,11 @@ def check_absolute_path(path):
 
 
 def handle_params():
+    """
+    Function retrieves options from check_params() and runs functions accordingly to their state
+    (which flags were used)
+    :return: None
+    """
     options = check_params()
     if options.interactive_mode or len(sys.argv) == 1:
         interactive_mode_run()
@@ -136,6 +162,10 @@ def handle_params():
 
 
 def interactive_mode_run():
+    """
+    running mode which asks user's data via prompt
+    :return: None
+    """
     path = input("Enter path to file or directory:\n")
     path = check_absolute_path(path)
 
@@ -154,6 +184,11 @@ def interactive_mode_run():
 
 
 def create_zip(file_dir):
+    """
+    create zipfile from files in entered directory
+    :param file_dir: absolute path to directory
+    :return: absolute path to created zipfile
+    """
     os.chdir(file_dir)
     zip_name = 'files_archive_{}.zip'.format(str(datetime.datetime.now())[5:16].replace(' ', "_"))
     files = os.listdir()
@@ -164,6 +199,7 @@ def create_zip(file_dir):
             print("Added file: ", f)
 
     zip_path = file_dir + "/" + zip_name
+
     # double check if path is absolute
     if os.path.isabs(zip_path):
         return zip_path
@@ -178,6 +214,12 @@ def remove_file(file):
 
 
 def confirm_removal(confirm, filename):
+    """
+    function used in interactive mode, asks weather to remove file, or not
+    :param confirm:
+    :param filename: absolute path to file
+    :return: None
+    """
     if confirm == 'y' or confirm == 'yes':
         remove_file(filename)
     elif confirm == 'n' or confirm == 'no':
@@ -188,6 +230,11 @@ def confirm_removal(confirm, filename):
 
 
 def send_to_transfersh(file):
+    """
+    send file to transfersh, retrieve download link, and copy it to clipboard
+    :param file: absolute path to file
+    :return: None
+    """
     size_of_file = get_size(file)
     final_date = get_date_in_two_weeks()
     file_name = os.path.basename(file)
@@ -203,6 +250,11 @@ def send_to_transfersh(file):
 
 
 def copy_to_clipboard(link):
+    """
+    copy dowload link to clipboard
+    :param link: dowload link for file
+    :return: None
+    """
     try:
         pyperclip.copy(link)
     except:
