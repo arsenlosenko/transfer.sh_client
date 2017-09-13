@@ -3,7 +3,7 @@ from os.path import join, dirname
 
 setup(
         name="transfersh_client",
-        version="1.0.7",
+        version="1.1.2",
         author="Arsen Losenko",
         author_email="arsenlosenko@gmail.com",
         description="transfer.sh command-line client",
@@ -21,7 +21,7 @@ setup(
         packages=find_packages(),
         long_description=open(join(dirname(__file__), "README.rst")).read(),
         install_requires=[
-            'requests==2.16',
+            'requests==2.16.0',
             'pyperclip==1.5.27',
         ],
         entry_points={

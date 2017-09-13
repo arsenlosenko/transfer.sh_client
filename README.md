@@ -5,7 +5,7 @@ so it could be easily shared
 
 # Latest release:
 
-https://pypi.python.org/pypi/transfersh-client/1.0.7
+https://pypi.python.org/pypi/transfersh-client/1.1.2
 
 # Getting Started
 - Install python and pip (package manager):
@@ -91,7 +91,7 @@ Removed.
 
 ## Example of usage inside scripts 
 
-~~~
+~~~python
 #!/usr/bin/env python3
 
 from transfersh_client.app import send_to_transfersh, create_zip, remove_file
