@@ -89,4 +89,23 @@ Removed.
 
 ~~~
 
+## Example of usage inside scripts 
+
+~~~
+#!/usr/bin/env python3
+
+from transfersh_client.app import send_to_transfersh, create_zip, remove_file
+
+
+def send_files_from_dir():
+    directory = './'
+    zip_file = create_zip(directory)  # creates zip archive and returns it's absolute path
+    send_to_transfersh(zip_file)  # sends archive to transfer.sh
+    remove_file(zip_file)  # removes it
+
+
+if __name__ == '__main__':
+    send_files_from_dir()
+
+~~~
 
