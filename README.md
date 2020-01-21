@@ -3,11 +3,11 @@ Python client for uploading files to transfer.sh (https://transfer.sh/)
 This command-line tool send file (or files, in case of directory download) to transfer.sh, and provides link to uploaded files,
 so it could be easily shared
 
-# Latest release:
+## Latest release:
 
 https://pypi.org/project/transfersh-client/1.1.3/
 
-# Getting Started
+## Getting Started
 
 - Install python and pip (package manager):
 ```bash
@@ -24,7 +24,7 @@ sudo apt-get install python python-pip
 pip3 install --user transfersh_client
 ```
 
-# Usage
+## Usage
 
 - After installation, you can run this package directly in command line. Launching it without arguments starts it in interactive mode:
 ```bash
