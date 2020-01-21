@@ -21,7 +21,7 @@ setup(
         packages=find_packages(),
         long_description=open(join(dirname(__file__), "README.rst")).read(),
         install_requires=[
-            'requests==2.16.0',
+            'requests==2.20.0',
             'pyperclip==1.5.27',
         ],
         entry_points={
