@@ -32,6 +32,7 @@ setup(
         ],
         packages=find_packages(),
         long_description=open(join(dirname(__file__), "README.rst")).read(),
+        long_description_content_type="text/x-rst",
         install_requires=list_requirements(),
         entry_points={
                 "console_scripts":
