@@ -1,11 +1,23 @@
 from setuptools import setup, find_packages
 from os.path import join, dirname
 
+
+def list_requirements():
+    deps = []
+    requirements_file = "requirements.txt"
+    with open(requirements_file) as f:
+        for line in f.readlines():
+            if "twine" in line:
+                continue
+                deps.append(line.strip())
+    return deps
+
+
 setup(
         name="transfersh_client",
-        version="1.1.2",
+        version="1.1.3",
         author="Arsen Losenko",
-        author_email="arsenlosenko@gmail.com",
+        author_email="arsenlosenko@protonmail.com",
         description="transfer.sh command-line client",
         url="https://github.com/arsenlosenko/transfer.sh_client.git",
         keywords="transfer.sh command-line client tool utility cli CLI",
@@ -20,14 +32,9 @@ setup(
         ],
         packages=find_packages(),
         long_description=open(join(dirname(__file__), "README.rst")).read(),
-        install_requires=[
-            'requests==2.16.0',
-            'pyperclip==1.5.27',
-        ],
+        install_requires=list_requirements(),
         entry_points={
                 "console_scripts":
                 ['transfer_files = transfersh_client.app:main'],
             },
     )
-
-

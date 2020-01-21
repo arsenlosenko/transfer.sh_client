@@ -2,7 +2,7 @@
 
 """
 author: Arsen Losenko
-email: arsenlosenko@gmail.com
+email: arsenlosenko@protonmail.com
 github: arsenlosenko
 short description: command-line tool that uploads files to transfer.sh and returns download link
 """
@@ -230,7 +230,7 @@ def confirm_removal(confirm, filename):
         confirm_removal()
 
 
-def send_to_transfersh(file, copy_to_clipboard=True):
+def send_to_transfersh(file, clipboard=True):
     """
     send file to transfersh, retrieve download link, and copy it to clipboard
     :param file: absolute path to file
@@ -248,7 +248,8 @@ def send_to_transfersh(file, copy_to_clipboard=True):
     download_link = response.content.decode('utf-8')
     print("Link to download file(will be saved till {}):\n{}".format(final_date, download_link))
 
-    copy_to_clipboard(download_link)
+    if clipboard:
+        copy_to_clipboard(download_link)
     return download_link
 
 
@@ -268,12 +269,7 @@ def copy_to_clipboard(link):
     :param link: dowload link for file
     :return: None
     """
-    try:
-        pyperclip.copy(link)
-    except:
-        print("There is no copy/paste environment, please install one of the following packages:\n"
-              "sudo apt-get install\n"
-              "sudo apt-get install xclip")
+    pyperclip.copy(link)
     print("Link copied to clipboard")
 
 
