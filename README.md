@@ -3,39 +3,36 @@ Python client for uploading files to transfer.sh (https://transfer.sh/)
 This command-line tool send file (or files, in case of directory download) to transfer.sh, and provides link to uploaded files,
 so it could be easily shared
 
-# Latest release:
+## Latest release:
 
-https://pypi.python.org/pypi/transfersh-client/1.1.2
+https://pypi.org/project/transfersh-client/1.1.3/
 
-# Getting Started
+## Getting Started
+
 - Install python and pip (package manager):
-~~~~
+```bash
 sudo apt-get update
-
 sudo apt-get install python3 python3-pip
 
 OR
 
 sudo apt-get install python python-pip
-~~~~
+```
+
 - Download package from pip:
-~~~
-sudo pip3 install transfersh_client
+```bash
+pip3 install --user transfersh_client
+```
 
-OR
-
-sudo pip install trnasfersh_client
-~~~
-
-# Usage
+## Usage
 
 - After installation, you can run this package directly in command line. Launching it without arguments starts it in interactive mode:
-~~~
+```bash
 transfer_files
-~~~
+```
 
 ### Sample output:
-~~~~
+```bash
 Github|⇒ transfer_files
 Enter path to file or directory: ./sysinfo
 Creating zipfile from files in... /home/path/to/directory/sysinfo
@@ -61,7 +58,7 @@ Link copied to clipboard
 Remove archive? (y/n, yes/no):yes
 Removing file... /home/path/to/directory/sysinfo/files_archive_09-02_18:34.zip
 Removed.
-~~~~
+```
 - Besides that, you can start it with arguments:
 
    -i --interactive - keys that will start app with prompts (same as running it without arguments)
@@ -77,7 +74,7 @@ Removed.
    -h --help - display help message
 
 ### Sample output
-~~~
+```bash
 transfer.sh_client|dev⚡ ⇒ transfer_files -f test.txt --rf
 
 Sending file: /home/path/to/directory/transfer.sh_client/test.txt (size of the file: 0.000113 MB)
@@ -86,12 +83,11 @@ https://transfer.sh/CtaJs/test.txt
 Link copied to clipboard
 Removing file... /home/path/to/directory/transfer.sh_client/test.txt
 Removed.
-
-~~~
+```
 
 ## Example of usage inside scripts 
 
-~~~python
+```python
 #!/usr/bin/env python3
 
 from transfersh_client.app import send_to_transfersh, create_zip, remove_file
@@ -106,6 +102,7 @@ def send_files_from_dir():
 
 if __name__ == '__main__':
     send_files_from_dir()
+```
 
-~~~
-
+## Contributing
+If you want to add some sort of a feature, fill free to fork this repo and submit your changes via a PR.

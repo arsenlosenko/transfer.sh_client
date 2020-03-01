@@ -2,7 +2,7 @@
 
 """
 author: Arsen Losenko
-email: arsenlosenko@gmail.com
+email: arsenlosenko@protonmail.com
 github: arsenlosenko
 short description: command-line tool that uploads files to transfer.sh and returns download link
 """
@@ -14,6 +14,7 @@ import requests
 import datetime
 import pyperclip
 import argparse
+import wget
 
 
 def get_date_in_two_weeks():
@@ -221,11 +222,12 @@ def confirm_removal(confirm, filename):
         confirm_removal()
 
 
-def send_to_transfersh(file):
+def send_to_transfersh(file, clipboard=True):
     """
     send file to transfersh, retrieve download link, and copy it to clipboard
     :param file: absolute path to file
-    :return: None
+    :param copy_to_clipboard: boolean value specifing if the download_link should be copied to clipboard
+    :return: download_link
     """
     size_of_file = get_size(file)
     final_date = get_date_in_two_weeks()
@@ -238,7 +240,19 @@ def send_to_transfersh(file):
     download_link = response.content.decode('utf-8')
     print("Link to download file(will be saved till {}):\n{}".format(final_date, download_link))
 
-    copy_to_clipboard(download_link)
+    if clipboard:
+        copy_to_clipboard(download_link)
+    return download_link
+
+
+def download_from_transfersh(download_link, path='.'):
+    """
+    download file from transfersh
+    :param download_link: link to uploaded file
+    :param path:  directory or file path for file to be downloaded
+    :return: path where the file is downloaded
+    """
+    return wget.download(download_link,out=path)
 
 
 def copy_to_clipboard(link):
@@ -247,12 +261,7 @@ def copy_to_clipboard(link):
     :param link: dowload link for file
     :return: None
     """
-    try:
-        pyperclip.copy(link)
-    except:
-        print("There is no copy/paste environment, please install one of the following packages:\n"
-              "sudo apt-get update\n"
-              "sudo apt-get install xclip")
+    pyperclip.copy(link)
     print("Link copied to clipboard")
 
 

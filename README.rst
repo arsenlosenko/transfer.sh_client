@@ -66,9 +66,9 @@ Sample output
     Removing file... /home/path/to/directory/transfer.sh_client/test.txt
     Removed.
 
-=====================
+================================
 Example of usage inside scripts
-=====================
+================================
 ::
 
     #!/usr/bin/env python3
