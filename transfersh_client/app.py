@@ -39,37 +39,40 @@ def get_size(file):
 
 
 def parse_params():
-    usage = "%prog [-i/--file/--directory] /path/to/file [--rm-archive/--rm-file]\n" \
+    usage = "%prog [-i/--file/--directory/--send] /path/to/file [--rm-archive/--rm-file]\n" \
             "Short description:\n" \
             "transfersh-client is used to send files to transfer.sh and retrieve download link, " \
             "so it could be shared fast and easily directly from command-line.\n" \
             "It can send all files from entered directory (in an archive) or send one file.\n" \
             "You can download up to 10 GB files to transfer.sh, they will be saved there for 14 days."
     parser = argparse.ArgumentParser(usage)
-    parser.add_argument('-i', '--interactive',
-                      dest="interactive_mode",
-                      action="store_true",
-                      help="run in interactive mode (with entering info in the prompt)")
-    parser.add_argument('-d', '--directory',
-                      dest="directory",
-                      action="store",
-                      help="enter absolute path to directory, and create archive of it")
-    parser.add_argument('-f', '--file',
-                      dest="file",
-                      action="store",
-                      help="path to file which will be uploaded")
-    parser.add_argument("-s", "--send",
-                        dest="send",
-                        action="store",
-                        help="path to file or directory that will be sent to transfer.sh (can be used instead of -f or-d)")
-    parser.add_argument('--rf', '--rm-file',
-                      dest="rm_file",
-                      action="store_true",
-                      help="remove files after sending")
-    parser.add_argument('--ra', '--rm-archive',
-                      dest="rm_arch",
-                      action="store_true",
-                      help="remove only created archive")
+    parser.add_argument(
+        '-i',
+        '--interactive',
+        dest="interactive_mode",
+        action="store_true",
+        help="run in interactive mode (with entering info in the prompt)")
+    parser.add_argument(
+        '-d', '--directory', dest="directory", action="store",
+        help="enter absolute path to directory, and create archive of it")
+    parser.add_argument(
+        '-f', '--file',
+        dest="file",
+        action="store",
+        help="path to file which will be uploaded")
+    parser.add_argument(
+        "-s", "--send", dest="send", action="store",
+        help="path to file or directory that will be sent to transfer.sh (can be used instead of -f or-d)")
+    parser.add_argument(
+        '--rf', '--rm-file',
+        dest="rm_file",
+        action="store_true",
+        help="remove files after sending")
+    parser.add_argument(
+        '--ra', '--rm-archive',
+        dest="rm_arch",
+        action="store_true",
+        help="remove only created archive")
     args = parser.parse_args()
 
     return args, parser
@@ -98,6 +101,7 @@ def check_params():
         sys.exit()
     else:
         return args
+
 
 def handle_params():
     """
@@ -143,6 +147,7 @@ def handle_params():
                 zip_file = create_zip(directory)
                 send_to_transfersh(zip_file)
 
+
 def check_absolute_path(path):
     """
     check if entered directory is absolute, if not, format it to absolute
@@ -183,7 +188,8 @@ def create_zip(file_dir):
     :return: absolute path to created zipfile
     """
     os.chdir(file_dir)
-    zip_name = 'files_archive_{}.zip'.format(str(datetime.datetime.now())[5:16].replace(' ', "_"))
+    zip_name = 'files_archive_{}.zip'.format(
+        str(datetime.datetime.now())[5:16].replace(' ', "_"))
     files = os.listdir()
     print("Creating zipfile from files in...", file_dir)
     with zipfile.ZipFile(zip_name, 'w') as zip:
@@ -233,12 +239,18 @@ def send_to_transfersh(file, clipboard=True):
     final_date = get_date_in_two_weeks()
     file_name = os.path.basename(file)
 
-    print("\nSending file: {} (size of the file: {} MB)".format(file_name, size_of_file))
+    print(
+        "\nSending file: {} (size of the file: {} MB)".format(
+            file_name,
+            size_of_file))
     url = 'https://transfer.sh/'
     file = {'{}'.format(file): open(file, 'rb')}
     response = requests.post(url, files=file)
     download_link = response.content.decode('utf-8')
-    print("Link to download file(will be saved till {}):\n{}".format(final_date, download_link))
+    print(
+        "Link to download file(will be saved till {}):\n{}".format(
+            final_date,
+            download_link))
 
     if clipboard:
         copy_to_clipboard(download_link)
@@ -252,7 +264,7 @@ def download_from_transfersh(download_link, path='.'):
     :param path:  directory or file path for file to be downloaded
     :return: path where the file is downloaded
     """
-    return wget.download(download_link,out=path)
+    return wget.download(download_link, out=path)
 
 
 def copy_to_clipboard(link):
