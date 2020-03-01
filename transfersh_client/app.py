@@ -174,10 +174,10 @@ def interactive_mode_run():
         confirm = input("Remove file? (y/n, yes/no):")
         confirm_removal(confirm, path)
     elif os.path.isdir(path):
-        create_zip(path)
-        send_to_transfersh(path)
+        zip_file = create_zip(path)
+        send_to_transfersh(zip_file)
         confirm = input("Remove archive? (y/n, yes/no):")
-        confirm_removal(confirm, path)
+        confirm_removal(confirm, zip_file)
     else:
         print("Please enter a valid absolute path to file/directory")
         sys.exit()
