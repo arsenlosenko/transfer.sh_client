@@ -13,7 +13,7 @@ import zipfile
 import requests
 import datetime
 import pyperclip
-import optparse
+import argparse
 
 
 def get_date_in_two_weeks():
@@ -44,32 +44,30 @@ def parse_params():
             "so it could be shared fast and easily directly from command-line.\n" \
             "It can send all files from entered directory (in an archive) or send one file.\n" \
             "You can download up to 10 GB files to transfer.sh, they will be saved there for 14 days."
-    parser = optparse.OptionParser(usage)
-    parser.add_option('-i', '--interactive',
+    parser = argparse.ArgumentParser(usage)
+    parser.add_argument('-i', '--interactive',
                       dest="interactive_mode",
                       action="store_true",
                       help="run in interactive mode (with entering info in the prompt)")
-    parser.add_option('-d', '--directory',
+    parser.add_argument('-d', '--directory',
                       dest="directory",
                       action="store",
-                      type="string",
                       help="enter absolute path to directory, and create archive of it")
-    parser.add_option('-f', '--file',
+    parser.add_argument('-f', '--file',
                       dest="file",
                       action="store",
-                      type="string",
-                      help="absolute path to file which will be uploaded")
-    parser.add_option('--rf', '--rm-file',
+                      help="path to file which will be uploaded")
+    parser.add_argument('--rf', '--rm-file',
                       dest="rm_file",
                       action="store_true",
                       help="remove files after sending")
-    parser.add_option('--ra', '--rm-archive',
+    parser.add_argument('--ra', '--rm-archive',
                       dest="rm_arch",
                       action="store_true",
                       help="remove only created archive")
-    (options, args) = parser.parse_args()
+    args = parser.parse_args()
 
-    return options, args, parser
+    return args, parser
 
 
 def check_params():
@@ -79,7 +77,7 @@ def check_params():
     """
     params = parse_params()
     options = params[0]
-    parser = params[2]
+    parser = params[1]
 
     # handle incorrect usage of options (a bit of spaghetti code)
     if (options.interactive_mode and options.file) \
