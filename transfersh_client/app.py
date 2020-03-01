@@ -57,6 +57,10 @@ def parse_params():
                       dest="file",
                       action="store",
                       help="path to file which will be uploaded")
+    parser.add_argument("-s", "--send",
+                        dest="send",
+                        action="store",
+                        help="path to file or directory that will be sent to transfer.sh (can be used instead of -f or-d)")
     parser.add_argument('--rf', '--rm-file',
                       dest="rm_file",
                       action="store_true",
@@ -75,47 +79,24 @@ def check_params():
     check if entered params are in correct usage (and prevent incorrect usage)
     :return: options in correct form
     """
-    params = parse_params()
-    options = params[0]
-    parser = params[1]
+    args, parser = parse_params()
 
-    # handle incorrect usage of options (a bit of spaghetti code)
-    if (options.interactive_mode and options.file) \
-            or (options.interactive_mode and options.directory) \
-            or (options.interactive_mode and options.rm_arch) \
-            or (options.interactive_mode and options.rm_file):
-        print("Interactive option is used separately from other options\n")
-        parser.print_help()
-        sys.exit()
-    elif (options.file and options.rm_arch) \
-            or (options.directory and options.rm_file):
+    if args.interactive_mode:
+        print("During interactive mode all other options are omitted")
+    elif args.send:
+        print("Using file provided by --send option, omitting --file and --directory")
+    elif (args.file and args.rm_arch) \
+            or (args.directory and args.rm_file):
         print("Use either --ra or --rf accordingly:\n")
         parser.print_help()
         sys.exit()
-    elif (options.file and options.directory) \
-            or (options.rm_arch and options.rm_file):
+    elif (args.file and args.directory) \
+            or (args.rm_arch and args.rm_file):
         print("Use either -f or -d options\n")
         parser.print_help()
         sys.exit()
     else:
-        return options
-
-
-def check_absolute_path(path):
-    """
-    check if entered directory is absolute, if not, format it to absolute
-    :param path: path that was entered by user
-    :return: absolute path
-    """
-    current_dir = os.getcwd()
-    if os.path.isabs(path) is False:
-        if str(path).startswith("./"):
-            return current_dir + path[1:]
-        else:
-            return current_dir + "/" + path
-    else:
-        return path
-
+        return args
 
 def handle_params():
     """
@@ -123,43 +104,56 @@ def handle_params():
     (which flags were used)
     :return: None
     """
-    options = check_params()
-    if options.interactive_mode or len(sys.argv) == 1:
-        interactive_mode_run()
+    args = check_params()
+    if args.interactive_mode or len(sys.argv) == 1:
+        run_interactive_mode()
 
-    # check if file or directory exists, and weather to remove created archive or file
-    if options.file is not None:
+    filename = args.file
+    directory = args.directory
+
+    if filename is not None:
         try:
-            os.path.isfile(options.file)
+            os.path.isfile(filename)
         except FileNotFoundError:
             print("Please enter valid absolute path to file")
             sys.exit()
         else:
-            options.file = check_absolute_path(options.file)
-            if options.rm_file:
-                send_to_transfersh(options.file)
-                remove_file(options.file)
+            filename = check_absolute_path(filename)
+            if args.rm_file:
+                send_to_transfersh(filename)
+                remove_file(filename)
             else:
-                send_to_transfersh(options.file)
+                send_to_transfersh(filename)
 
-    if options.directory is not None:
+    directory = args.directory
+    if directory is not None:
         try:
-            os.path.isdir(options.directory)
+            os.path.isdir(directory)
         except NotADirectoryError:
             print("Please enter valid absolute path to directory")
             sys.exit()
         else:
-            options.directory = check_absolute_path(options.directory)
-            if options.rm_arch:
-                zip_file = create_zip(options.directory)
+            directory = check_absolute_path(directory)
+            if args.rm_arch:
+                zip_file = create_zip(directory)
                 send_to_transfersh(zip_file)
                 remove_file(zip_file)
             else:
-                zip_file = create_zip(options.directory)
+                zip_file = create_zip(directory)
                 send_to_transfersh(zip_file)
 
+def check_absolute_path(path):
+    """
+    check if entered directory is absolute, if not, format it to absolute
+    :param path: path that was entered by user
+    :return: absolute path
+    """
+    if os.path.isabs(path) is False:
+        path = os.path.join(os.getcwd(), path)
+    return path
 
-def interactive_mode_run():
+
+def run_interactive_mode():
     """
     running mode which asks user's data via prompt
     :return: None
@@ -257,7 +251,7 @@ def copy_to_clipboard(link):
         pyperclip.copy(link)
     except:
         print("There is no copy/paste environment, please install one of the following packages:\n"
-              "sudo apt-get install\n"
+              "sudo apt-get update\n"
               "sudo apt-get install xclip")
     print("Link copied to clipboard")
 
